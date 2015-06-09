@@ -19,5 +19,6 @@ from www.views import coming_soon
 
 urlpatterns = [
     url(r'^$', coming_soon, name='coming_soon'),
+    url(r'^jointhefleet/', include('jointhefleet.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
