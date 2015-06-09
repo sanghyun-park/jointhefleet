@@ -55,3 +55,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Django SQLite Database
+db.sqlite3
