@@ -1,0 +1,26 @@
+{% extends "jointhefleet/base.html" %}
+
+{% block contents %}
+    <div class="container">
+      <h1 class="page-header text-center">{{ Operation.code }}</h1>
+      <div style="text-align: center">
+          <div class="panel panel-primary">
+              <div class="panel-heading">
+                  <h3 class="panel-title">Participant Information</h3>
+              </div>
+              <div class="panel-body">
+                  <ul style="list-style: none">
+                      <img src="https://image.eveonline.com/Character/{{ Info.charid }}_256.jpg" width="256" height="256">
+                      <li><strong>Name</strong> : {{ Info.name }}</li>
+                      <li><strong>Alliance</strong> : {{ Info.alliance }}</li>
+                      <li><strong>Corp</strong> : {{ Info.corp }}</li>
+                      <li><strong>Ship</strong> : {{ Info.ship }}</li>
+                      <li><strong>System</strong> : {{ Info.system }}</li>
+                      <li><strong>Join Time</strong> : {{ Info.join_time }} (KST)</li>
+                  </ul>
+                  <p><strong>You joined !!</strong></p>
+              </div>
+          </div>
+      </div>
+    </div>
+{% endblock %}

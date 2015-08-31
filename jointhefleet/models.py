@@ -23,11 +23,6 @@ class Operation(models.Model):
                 ('ETC', 'Etc.'),
             ),
         ),
-        ('Movingstar Operation', (
-                ('WRR', 'Mission WRR'),
-                ('MWF', 'Movingstar Wormhole Fleet'),
-            ),
-        ),
     )
     category = models.CharField(max_length=3, choices=OP_CATEGORY,
                 default='CTA', help_text='Operation Category')

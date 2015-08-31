@@ -17,11 +17,6 @@ class create_operation_form(forms.Form):
                 ('ETC', 'Etc.'),
             ),
         ),
-        ('Movingstar Operation', (
-                ('WRR', 'Mission WRR'),
-                ('MWF', 'Movingstar Wormhole Fleet'),
-            ),
-        ),
     )
     category = forms.ChoiceField(label='Category', choices=OP_CATEGORY)
 
@@ -32,14 +27,30 @@ class create_operation_form(forms.Form):
 class create_operation_form(ModelForm):
     class Meta:
         model = Operation
-        fields = ['code', 'date_opd', 'category', 'fc_id', 'fc_name']
+        fields = ['code', 'date_opd', 'category', 'fc_id', 'fc_name']        
+
+    def __init__(self, *args, **kwargs):
+        super(create_operation_form, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
 
 class edit_operation_form(ModelForm):
     class Meta:
         model = Operation
         fields = ['code', 'date_opd', 'date_fin', 'category', 'state', 'fc_id', 'fc_name', 'acquired', 'remarks', 'profit']
 
+    def __init__(self, *args, **kwargs):
+        super(edit_operation_form, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
 class add_killmail_form(ModelForm):
     class Meta:
         model = Killmail
         fields = ['killID', 'solarSystemID', 'killTime', 'shipTypeID', 'characterID', 'characterName', 'corporationID', 'corporationName', 'allianceID', 'allianceName', 'totalValue']
+
+    def __init__(self, *args, **kwargs):
+        super(add_killmail_form, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'

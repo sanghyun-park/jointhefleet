@@ -1,0 +1,93 @@
+{% extends "jointhefleet/base.html" %}
+{% load humanize %}
+
+{% block contents %}
+    <div class="container">
+      <h1 class="page-header text-center">{{ Operation.code }}</h1>
+        <div class="text-right" style="margin-bottom:15px;">
+          <a href="/jointhefleet/{{ Operation.id }}/addkillmail" class="btn btn-primary btn-xs">
+            <span class="fa fa-plus"></span> Add Killmail
+          </a>
+          <a href="/jointhefleet/{{ Operation.id }}/edit" class="btn btn-primary btn-xs">
+            <span class="fa fa-edit"></span> Edit Operation
+          </a>
+        </div>
+
+      <h2>Fleet Information</h2>
+      <ul>
+          <li><strong>FC</strong> : <img src="https://image.eveonline.com/Character/{{ Operation.fc_id }}_32.jpg" width=32 height= 32> <a href="#!" onclick="CCPEVE.showInfo(1377, {{ Operation.fc_id }})">{{ Operation.fc_name }}</a></li>
+          <li class="hidden-xs"><strong>OP Link</strong> : <span class="label label-success">http://riserenters.com/jointhefleet/join/{{ Operation.security_code }}</span></li>
+          <li><strong>Category</strong> : {% if Operation.category == "ROM" %}Roaming{% elif Operation.category == "CTA" %}CTA{% elif Operation.category == "TRN" %}Training{% elif Operation.category == "ETC" %}Etc.{% endif %}</li>
+          <li><strong>OP TIME</strong> : {{ Operation.date_opd|date:"Y-m-d H:i" }} ~ {{ Operation.date_fin|date:"Y-m-d H:i" }}</li>
+          {% if Operation.state == "OPENED" %}
+          <li><strong>State</strong> : <span class="label label-success">OPENED</span></li>
+          {% elif Operation.state == "CLOSED" %}
+          <li><strong>State</strong> : <span class="label label-danger">CLOSED</span></li>
+          {% elif Operation.state == "DSITED" %}
+          <li><strong>State</strong> : <span class="label label-danger">Distributed</span></li>
+          {% endif %}
+      </ul>
+      <h2>Participant <span class="badge">{{ numofMembers }}</span></h2>
+      <table class="table table-striped table-hover ">
+          <thead>
+              <tr>
+                  <th class="text-center">Name</th>
+                  <th class="text-center">Ship</th>
+                  <th class="text-center hidden-xs">Corporation</th>
+                  <th class="text-center hidden-xs">System</th>
+                  <th class="text-center hidden-xs">Join Time</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for mem in Member %}
+              <tr>
+                  <td><img src="https://image.eveonline.com/Character/{{ mem.member_id }}_32.jpg" width=32 height= 32 style="margin-bottom: 2px"> <a href="#!" onclick="CCPEVE.showInfo(1377, {{ mem.member_id }})">{{ mem.member_name }}</a></td>
+                  <td class="text-center">{{ mem.member_ship_name }}</td>
+                  <td class="text-center hidden-xs">{{ mem.member_corp_name }}</td>
+                  <td class="text-center hidden-xs">{{ mem.member_system }}</td>
+                  <td class="text-center hidden-xs">{{ mem.join_time }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      <h2>Acquired</h2>
+      <div class="well">
+          {{ Operation.acquired }}
+      </div>
+      <h2>Remarks</h2>
+      <div class="well">
+          {{ Operation.remarks }}
+      </div>
+      <h2>Killboard</h2>
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th rowspan="2" class="text-center">Ship</th>
+                  <th class="text-center">Alliance</th>
+                  <th class="text-center">Corporation</th>
+                  <th class="text-center">Character</th>
+                  <th rowspan="2" class="text-center">zKillboard Link</th>
+              </tr>
+              <tr>
+                  <th class="text-center">Kill Time</th>
+                  <th colspan="2" class="text-center hidden-xs">Total Value</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for kboard in Killboard %}
+              <tr>
+                  <td rowspan="2" class="text-center"><img src="/static/eve-data/typeid/{{ kboard.shipTypeID }}_64.png" width=64 height=64 style="margin-bottom: 2px"></td>
+                  <td class="text-center">{{ kboard.allianceName }}</td>
+                  <td class="text-center">{{ kboard.corporationName }}</td>
+                  <td class="text-center">{{ kboard.characterName }}</td>
+                  <td rowspan="2" class="text-center"><a href="http://zkillboard.com/kill/{{ kboard.killID }}" target="_blank">Link to zKillboard.com</a></td>
+              </tr>
+              <tr>
+                  <td class="text-center">{{ kboard.killTime }}</td>
+                  <td colspan="2" class="text-center">{{ kboard.totalValue|intcomma }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+    </div>
+{% endblock %}

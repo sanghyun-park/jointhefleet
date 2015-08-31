@@ -21,7 +21,7 @@ def check_trusted(func):
         if trusted == "Yes":
             return func(request, *args, **kwargs)
         else:
-            return render(request, 'jointhefleet/err_no_trusted.html')
+            return render(request, 'jointhefleet/err_not_trusted.html')
 
         ret = func(request, *args, **kwargs)
     return check
@@ -46,7 +46,7 @@ def view_history(request):
     top_fc = Operation.objects.values('fc_id', 'fc_name').annotate(id_count=Count('fc_id')).order_by('-id_count')[:10]
     top_corp = Member.objects.values('member_corp_id', 'member_corp_name').annotate(id_count=Count('member_corp_id')).order_by('-id_count')[:10]
 
-    return render(request, 'jointhefleet/index.html', {'Operations':Operations, 'top_character': top_character, 'top_fc': top_fc, 'top_corp': top_corp})
+    return render(request, 'jointhefleet/fleet_history.html', {'Operations':Operations, 'top_character': top_character, 'top_fc': top_fc, 'top_corp': top_corp})
 
 @check_trusted
 def join_operation(request, security_code):

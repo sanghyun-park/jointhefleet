@@ -1,0 +1,52 @@
+{% extends "jointhefleet/base.html" %}
+
+{% block contents %}
+    <div class="container">
+      <h1 class="page-header text-center">New Operation</h1>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <form action="/jointhefleet/create" method="post" class="form-horizontal">
+            {% csrf_token %}
+            <fieldset>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Code Name</label>
+                <div class="col-lg-10">
+                  {{ form.code }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Start Time</label>
+                <div class="col-lg-10">
+                  {{ form.date_opd }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Category</label>
+                <div class="col-lg-10">
+                  {{ form.category }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">FC ID</label>
+                <div class="col-lg-10">
+                  {{ form.fc_id }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">FC Name</label>
+                <div class="col-lg-10">
+                  {{ form.fc_name }}
+                </div>
+              </div>
+            </fieldset>
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+              <button type="submit" class="btn btn-primary"><span class="fa fa-plus"></span> Create</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+{% endblock %}

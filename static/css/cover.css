@@ -5,3 +5,16 @@ table, .table {
 .navbar {
   font-size: 11pt;
 }
+
+input, select, textarea {
+  width: 100%;
+}
+
+.control-label{
+  font-weight: 600;
+}
+
+.page-header{
+  margin: 0 0 21px;
+  padding-bottom: 9.5px;
+}

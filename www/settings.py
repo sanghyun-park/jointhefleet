@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'jointhefleet'
+    'django.contrib.humanize',
+    'jointhefleet',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -1,0 +1,55 @@
+{% extends "jointhefleet/base.html" %}
+
+{% block contents %}
+    <div class="container">
+      <h1 class="page-header text-center">Fleet history</h1>
+      <div class="text-right" style="margin-bottom:15px;">
+        <a href="/webtools/charid" class="btn btn-primary btn-xs">
+          <span class="fa fa-search"></span> Find Character ID
+        </a>
+        <a href="/jointhefleet/create" class="btn btn-primary btn-xs">
+          <span class="fa fa-plus"></span> New Operation
+        </a>
+      </div>
+      <div class="row">
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Code Name</th>
+                    <th class="text-center hidden-xs">Category</th>
+                    <th class="text-center hidden-xs">Date</th>
+                    <th class="text-center hidden-xs">FC</th>
+                    <th class="text-center hidden-xs">State</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ops in Operations %}
+                <tr>
+                    <td class="text-center">{{ ops.id }}</td>
+                    <td><a href="/jointhefleet/{{ ops.id }}">{{ ops.code }}</a></td>
+                    <td class="text-center hidden-xs">
+                        {% if ops.category == "ROM" %}Roaming
+                        {% elif ops.category == "CTA" %}CTA
+                        {% elif ops.category == "TRN" %}Training
+                        {% elif ops.category == "ETC" %}Etc.
+                        {% endif %}
+                    </td>
+                    <td class="text-center hidden-xs">{{ ops.date_opd|date:"Y-m-d H:i" }}</td>
+                    <td class="text-center hidden-xs">{{ ops.fc_name }}</td>
+                    <td class="text-center hidden-xs">
+                        {% if ops.state == "OPENED" %}
+                        <span class="label label-success">OPENED</span>
+                        {% elif ops.state == "CLOSED" %}
+                        <span class="label label-danger">CLOSED</span>
+                        {% elif ops.state == "DSITED" %}
+                        <span class="label label-danger">Distributed</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+{% endblock %}
