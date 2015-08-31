@@ -26,6 +26,15 @@ def check_trusted(func):
         ret = func(request, *args, **kwargs)
     return check
 
+def index(request):
+    '''
+    top_character = Member.objects.values('member_id', 'member_name').annotate(id_count=Count('member_id')).order_by('-id_count')[:10]
+    top_fc = Operation.objects.values('fc_id', 'fc_name').annotate(id_count=Count('fc_id')).order_by('-id_count')[:10]
+    top_corp = Member.objects.values('member_corp_id', 'member_corp_name').annotate(id_count=Count('member_corp_id')).order_by('-id_count')[:10]
+    '''
+
+    return render(request, 'jointhefleet/index.html')
+
 def view_history(request):
     if is_fc(request.user) == False and is_movs(request.user) == False:
         return render(request, 'jointhefleet/err_not_allowed.html')

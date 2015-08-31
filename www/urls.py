@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from www.views import coming_soon
+from www import views
 
 urlpatterns = [
-    url(r'^$', coming_soon, name='coming_soon'),
-    url(r'^jointhefleet/', include('jointhefleet.urls')),
+    url(r'^$', views.main, name='main'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^jointhefleet/', include('jointhefleet.urls')),
 ]

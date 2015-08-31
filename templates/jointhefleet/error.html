@@ -1,0 +1,17 @@
+{% extends "jointhefleet/base.html" %}
+
+{% block contents %}
+    <div class="container">
+      <h1 class="page-header text-center">ERROR!</h1>
+      <div style="text-align: center;">
+          <div class="panel panel-danger">
+              <div class="panel-heading">
+                  <h3 class="panel-title">{% block err_title %}{% endblock%}</h3>
+              </div>
+              <div class="panel-body">
+                  {% block err_body %}{% endblock %}
+              </div>
+          </div>
+      </div>
+    </div>
+{% endblock %}

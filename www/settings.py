@@ -26,7 +26,7 @@ SECRET_KEY = '2cn8chzmqk_4*s=ar+)&lcfy-vk2f843#q2#11)(&w!7-z0)2*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['riserenter.com']
+ALLOWED_HOSTS = ['riserenters.com']
 
 
 # Application definition
