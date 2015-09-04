@@ -152,22 +152,30 @@ def edit_operation(request, operation_id):
     }
 
     if request.method == 'POST':
-        form = edit_operation_form(request.POST)
-        if form.is_valid():
-            Operation_.code = request.POST.get('code','')
-            Operation_.date_opd = request.POST.get('date_opd','')
-            if request.POST.get('date_fin','') != '' :
-                Operation_.date_fin = request.POST.get('date_fin','')
-            Operation_.category = request.POST.get('category','')
-            Operation_.fc_id = request.POST.get('fc_id','')
-            Operation_.fc_name = request.POST.get('fc_name','')
-            Operation_.state = request.POST.get('state','')
-            Operation_.acquired = request.POST.get('acquired','')
-            Operation_.remarks = request.POST.get('remarks','')
-            Operation_.killboard = request.POST.get('killboard','')
-            Operation_.profit = request.POST.get('profit','')
-            Operation_.save()
-            return redirect('/jointhefleet/' + str(Operation_.id))
+        if 'now' in request.POST:
+            request.POST = request.POST.copy()
+            request.POST['date_fin'] = datetime.datetime.now()
+            form = edit_operation_form(request.POST)
+            #form.cleaned_data['date_fin'] = datetime.datetime.now()
+            return render(request, 'jointhefleet/edit.html', {'form': form, 'Operation':Operation_,})
+
+        if 'edit' in request.POST:
+            form = edit_operation_form(request.POST)
+            if form.is_valid():
+                Operation_.code = request.POST.get('code','')
+                Operation_.date_opd = request.POST.get('date_opd','')
+                if request.POST.get('date_fin','') != '' :
+                    Operation_.date_fin = request.POST.get('date_fin','')
+                Operation_.category = request.POST.get('category','')
+                Operation_.fc_id = request.POST.get('fc_id','')
+                Operation_.fc_name = request.POST.get('fc_name','')
+                Operation_.state = request.POST.get('state','')
+                Operation_.acquired = request.POST.get('acquired','')
+                Operation_.remarks = request.POST.get('remarks','')
+                Operation_.killboard = request.POST.get('killboard','')
+                Operation_.profit = request.POST.get('profit','')
+                Operation_.save()
+                return redirect('/jointhefleet/' + str(Operation_.id))
     else:
         form = edit_operation_form(initial=data)
 
