@@ -17,7 +17,7 @@
       <ul>
           <li><strong>FC</strong> : <img src="https://image.eveonline.com/Character/{{ Operation.fc_id }}_32.jpg" width=32 height= 32> <a href="#!" onclick="CCPEVE.showInfo(1377, {{ Operation.fc_id }})">{{ Operation.fc_name }}</a></li>
           <li class="hidden-xs"><strong>OP Link</strong> : <span class="label label-success">http://riserenters.com/jointhefleet/join/{{ Operation.security_code }}</span></li>
-          <li><strong>Category</strong> : {% if Operation.category == "ROM" %}Roaming{% elif Operation.category == "CTA" %}CTA{% elif Operation.category == "TRN" %}Training{% elif Operation.category == "ETC" %}Etc.{% endif %}</li>
+          <li><strong>Category</strong> : {% if Operation.category == "ROM" %}Roaming{% elif Operation.category == "CTA" %}CTA{% elif Operation.category == "STO" %}Strat. OP{% elif Operation.category == "HMD" %}Home Defense{% elif Operation.category == "TRN" %}Training{% elif Operation.category == "ETC" %}Etc.{% endif %}</li>
           <li><strong>OP TIME</strong> : {{ Operation.date_opd|date:"Y-m-d H:i" }} ~ {{ Operation.date_fin|date:"Y-m-d H:i" }}</li>
           {% if Operation.state == "OPENED" %}
           <li><strong>State</strong> : <span class="label label-success">OPENED</span></li>

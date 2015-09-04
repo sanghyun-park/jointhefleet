@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render_to_response
 from django.core.paginator import Paginator
 from jointhefleet.models import Operation, Member, Killmail
 import md5, datetime, json, urllib2
 from jointhefleet.forms import create_operation_form, edit_operation_form, add_killmail_form
 from django.db.models import Count
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.template import RequestContext
+from django.http import HttpResponseRedirect
 
 def is_fc(user):
     return user.groups.filter(name='Alliance FC').exists()
@@ -27,13 +30,11 @@ def check_trusted(func):
     return check
 
 def index(request):
-    '''
     top_character = Member.objects.values('member_id', 'member_name').annotate(id_count=Count('member_id')).order_by('-id_count')[:10]
-    top_fc = Operation.objects.values('fc_id', 'fc_name').annotate(id_count=Count('fc_id')).order_by('-id_count')[:10]
     top_corp = Member.objects.values('member_corp_id', 'member_corp_name').annotate(id_count=Count('member_corp_id')).order_by('-id_count')[:10]
-    '''
+    #top_fc = Operation.objects.values('fc_id', 'fc_name').annotate(id_count=Count('fc_id')).order_by('-id_count')[:10]
 
-    return render(request, 'jointhefleet/index.html')
+    return render(request, 'jointhefleet/index.html', {'top_character':top_character, 'top_corp':top_corp})
 
 def view_history(request):
     if is_fc(request.user) == False and is_movs(request.user) == False:
@@ -228,3 +229,39 @@ def add_killmail(request, operation_id):
 
 def not_found(request, operation_id):
     return render(request, 'jointhefleet/err_not_found.html')
+
+def login(request):
+    auth_logout(request)
+    username = password = ''
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+  
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                return HttpResponseRedirect('/jointhefleet/')
+
+    return render_to_response('jointhefleet/account/login.html', context_instance=RequestContext(request))
+
+def logout(request):
+    auth_logout(request)
+    
+    return redirect('/jointhefleet/')
+
+@login_required(login_url='/jointhefleet/login')
+def chgpasswd(request):
+    username = password = ''
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                return HttpResponseRedirect('/jointhefleet/')
+        else:
+            render(request, 'jointhefleet/account/chgpasswd.html', {'errmsg': 'Incorrect Password'})
+
+    return render_to_response('jointhefleet/account/chgpasswd.html', context_instance=RequestContext(request))

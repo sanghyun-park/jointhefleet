@@ -5,14 +5,18 @@
           <ul class="nav navbar-nav">
             <!-- <li class="active"><a href="#">New Fleet</a></li> -->
             <li><a href="/jointhefleet/view">FC</span></a></li>
+            <!-- <li><a href="/jointhefleet/report">Report</span></a></li> -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
-            <li><a href="#!">Welcome, {{ user.username }}</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></a>
+              <ul class="dropdown-menu">
+                <li><a href="/jointhefleet/chgpasswd">Change Password</a></li>
+              </ul>
+            </li>
+            <li><a href="/jointhefleet/logout">Logout</a></li>
             {% else %}
-            <li><a href="#">Log in</a></li>
-            <li><a href="#">Sign up</a></li>
+            <li><a href="/jointhefleet/login">Log in</a></li>
             {% endif %}
           </ul>
         </div>

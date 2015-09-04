@@ -19,6 +19,8 @@ class Operation(models.Model):
         ('Alliance Operation', (
                 ('ROM', 'Roaming'),
                 ('CTA', 'CTA'),
+                ('STO', 'Strat. Op'),
+                ('HMD', 'Home Defense'),
                 ('TRN', 'Training'),
                 ('ETC', 'Etc.'),
             ),

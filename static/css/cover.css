@@ -18,3 +18,13 @@ input, select, textarea {
   margin: 0 0 21px;
   padding-bottom: 9.5px;
 }
+
+.dropdown-menu > li > a {
+  font-size: 10pt;
+}
+
+.errorlist {
+  list-style-type: none;
+  padding-left: 0px;
+  color: red;
+}

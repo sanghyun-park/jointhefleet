@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from www import views
+from jointhefleet.views import not_found
 
 urlpatterns = [
     url(r'^$', views.main, name='main'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^S9bL7DbFhB2KnYey64ZM5GKx', include(admin.site.urls)),
     url(r'^jointhefleet/', include('jointhefleet.urls')),
+    url(r'^(.*)$', not_found, name='not_found'),
 ]
